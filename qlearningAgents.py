@@ -41,7 +41,6 @@ class QLearningAgent(ReinforcementAgent):
     def __init__(self, **args):
         "You can initialize Q-values here..."
         ReinforcementAgent.__init__(self, **args)
-        
 
         "*** YOUR CODE HERE ***"
         self.q_values= util.Counter()
@@ -52,12 +51,12 @@ class QLearningAgent(ReinforcementAgent):
           Should return 0.0 if we have never seen a state
           or the Q node value otherwise
         """
+        
         "*** YOUR CODE HERE ***"
         if not self.q_values.has_key((state, action)):
             self.q_values[(state, action)] = 0.0
 
         return self.q_values[(state, action)]
-
 
     def computeValueFromQValues(self, state):
         """
@@ -66,6 +65,7 @@ class QLearningAgent(ReinforcementAgent):
           there are no legal actions, which is the case at the
           terminal state, you should return a value of 0.0.
         """
+        
         "*** YOUR CODE HERE ***"
         legal_actions = self.getLegalActions(state)
         if not legal_actions:
@@ -84,6 +84,7 @@ class QLearningAgent(ReinforcementAgent):
           are no legal actions, which is the case at the terminal state,
           you should return None.
         """
+        
         "*** YOUR CODE HERE ***"
         legalActions = self.getLegalActions(state)
         if not legalActions:
@@ -116,7 +117,6 @@ class QLearningAgent(ReinforcementAgent):
             action = random.choice(legalActions)
         return action
         
-
     def update(self, state, action, nextState, reward):
         """
           The parent class calls this to observe a
@@ -126,6 +126,7 @@ class QLearningAgent(ReinforcementAgent):
           NOTE: You should never call this function,
           it will be called on your behalf
         """
+        
         "*** YOUR CODE HERE ***"
         current_q_value = self.computeValueFromQValues(state)
         correction = reward + self.discount*self.computeValueFromQValues(nextState)-current_q_value
@@ -137,7 +138,6 @@ class QLearningAgent(ReinforcementAgent):
 
     def getValue(self, state):
         return self.computeValueFromQValues(state)
-
 
 class PacmanQAgent(QLearningAgent):
     "Exactly the same as QLearningAgent, but with different default parameters"
@@ -192,8 +192,9 @@ class ApproximateQAgent(PacmanQAgent):
           Should return Q(state,action) = w * featureVector
           where * is the dotProduct operator
         """
-        extractor = SimpleExtractor()
-        feature_vector = extractor.getFeatures(state, action)
+        
+        "*** YOUR CODE HERE ***"
+        feature_vector = self.featExtractor.getFeatures(state, action)
         weights = self.getWeights()
         q_value = 0.0
         for feat in feature_vector:
@@ -204,8 +205,9 @@ class ApproximateQAgent(PacmanQAgent):
         """
            Should update your weights based on transition
         """
-        extractor = SimpleExtractor()
-        feature_vector = extractor.getFeatures(state, action)
+
+        "*** YOUR CODE HERE ***"
+        feature_vector = self.featExtractor.getFeatures(state, action)
         weights = self.getWeights()
 
         current_q_value = self.computeValueFromQValues(state)
